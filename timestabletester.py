@@ -2,10 +2,25 @@
 from tkinter import *
 import random
 
-class TimesTableTester:
+class check:
+    def __init__(self):
+        self.rand1 = (random.randint(1,10))
+        self.rand2 = (random.randint(1,10))
+
+    def check(self):
+        '''Checks if the input is valid'''
+        AnswerQtns = self.rand1 * self.rand2 
+        if int(self.InputAns.get()) == AnswerQtns:
+            self.CheckAns.configure(text="Correct")
+        else:
+            self.CheckAns.configure(text="Incorrect")            
+
+class Interface(check):
     def __init__(self, parent):
+        check.__init__(self)
+
         '''Create the labels and buttons'''
-        self.Question = Label(parent, text="")
+        self.Question = Label(parent, text="{} * {} =".format(str(self.rand1), str(self.rand2)))
         self.Question.grid(column=0,row=0,sticky=NW, padx=50, pady=10)
 
         self.CheckAnsBtn = Button(parent, text="Check Answer", command = self.check)
@@ -20,26 +35,13 @@ class TimesTableTester:
         self.CheckAns = Label(parent, text="")
         self.CheckAns.grid(column=1,row=2)
 
-        self.rand1 = (random.randint(1,10))
-        self.rand2 = (random.randint(1,10))
-        self.Question.configure(text="{} * {} =".format(str(self.rand1), str(self.rand2)))
-
     def change(self):
-        '''Create two numbers between 1 to 9'''
-        self.rand1 = (random.randint(1,10))
-        self.rand2 = (random.randint(1,10))
+        '''Change question'''
+        check.__init__(self)
         self.Question.configure(text="{} * {} =".format(str(self.rand1), str(self.rand2)))
     
-    def check(self):
-        '''Checks if the input is valid'''
-        AnswerQtns = self.rand1 * self.rand2 
-        if int(self.InputAns.get()) == AnswerQtns:
-            self.CheckAns.configure(text="Correct")
-        else:
-            self.CheckAns.configure(text="Incorrect")            
-
 #main rountine
 root = Tk()
 root.geometry("250x100")
-timestable=(TimesTableTester(root))
+timestable=Interface(root)
 root.mainloop()
